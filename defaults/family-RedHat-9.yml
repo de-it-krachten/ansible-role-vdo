@@ -1,0 +1,11 @@
+---
+
+# VDO packages
+vdo_packages:
+  - lvm2
+  - vdo
+  - vdo-support
+  - kmod-kvdo
+
+# Kernel module
+vdo_module: kvdo

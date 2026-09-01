@@ -1,0 +1,36 @@
+---
+
+- name: Install vdo
+  ansible.builtin.package:
+    name: "{{ vdo_packages }}"
+    state: present
+  register: __vdo_packages
+
+- name: Enable vdo
+  ansible.builtin.service:
+    name: "{{ vdo_service }}"
+    state: started
+    enabled: true
+  when: vdo_service is defined
+  register: __vdo_service
+
+- name: Load VDO kernel module
+  community.general.modprobe:
+    name: "{{ vdo_module }}"
+    state: present
+  register: vdo_modprobe
+  failed_when: false
+  when: vdo_module is defined
+
+- name: Check loaded VDO module
+  ansible.builtin.command:
+    cmd: lsmod
+  register: vdo_lsmod
+  changed_when: false
+  failed_when: false
+
+- name: Restart host
+  ansible.builtin.reboot:
+  when:
+    - vdo_module is defined
+    - vdo_lsmod.stdout is not search(vdo_module)

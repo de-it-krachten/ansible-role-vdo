@@ -1,0 +1,7 @@
+---
+
+- name: Load OS specific variables
+  ansible.builtin.include_tasks: vars.yml
+
+- name: Install product
+  ansible.builtin.include_tasks: install.yml

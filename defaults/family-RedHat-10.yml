@@ -1,0 +1,7 @@
+---
+
+# VDO packages
+vdo_packages:
+  - lvm2
+  - vdo
+  - vdo-support

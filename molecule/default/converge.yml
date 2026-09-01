@@ -1,0 +1,13 @@
+---
+
+- name: Converge
+  hosts: all
+  become: "yes"
+  vars:
+    molecule_driver: "{{ lookup('env', 'MOLECULE_DRIVER_NAME') }}"
+    vdo_lvm: {'vg': [{'name': 'vgvdo', 'pv': ['3:0:0:0'], 'pvresize': True}], 'lv': [{'name': 'lvvdo1', 'type': 'vdo', 'size': '5G', 'pool_name': 'vpool0', 'virtualsize': '10G', 'vg': 'vgvdo', 'fstype': 'xfs', 'mp': '/vdo1'}]}
+    vdo_lvm2: {'vg': [{'name': 'vgvdo', 'pv': ['3:0:0:0'], 'pvresize': True}], 'lv': [{'name': 'lvvdo1', 'type': 'vdo', 'size': '9G', 'pool_name': 'vpool0', 'virtualsize': '40G', 'vg': 'vgvdo', 'fstype': 'xfs', 'mp': '/vdo1'}]}
+  tasks:
+    - name: Include role 'ansible-role-vdo'
+      ansible.builtin.include_role:
+        name: ansible-role-vdo
