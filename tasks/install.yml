@@ -34,5 +34,4 @@
   when:
     - vdo_module is defined
     - vdo_lsmod.stdout is not search(vdo_module)
-  tags: molecule-notest 
-  
+  tags: molecule-notest
